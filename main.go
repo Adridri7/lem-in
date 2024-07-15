@@ -1,12 +1,14 @@
 package main
 
 import (
-	"log"
+	"fmt"
 	"os"
+	"src"
 )
 
 func main() {
 	args := os.Args[1:]
-	log.Println(args[0])
+	src.Init(src.FileToTab(args[0]))
 
+	fmt.Println(src.GColony)
 }

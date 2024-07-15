@@ -1,5 +1,7 @@
 package src
 
+var GColony Colony
+
 type Colony struct {
 	Rooms   []RoomInfos
 	Tunnels [][]string
