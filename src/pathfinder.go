@@ -15,6 +15,7 @@ func GetAllValidPaths() {
 	for test < 10 {
 		for i, path := range Paths {
 			count := 0
+			// Init routes.
 			for _, tunnel := range Anthill.Tunnels {
 				if path[len(path)-1] == tunnel[0] && count < 1 {
 					count++
