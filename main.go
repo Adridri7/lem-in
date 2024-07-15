@@ -11,4 +11,5 @@ func main() {
 	src.Init(src.FileToTab(args[0]))
 	fmt.Println(src.Anthill)
 	src.Anthill.DisplayColony()
+	src.GetAllValidPaths()
 }
