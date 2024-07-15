@@ -1,7 +1,11 @@
 package main
 
-import "fmt"
+import (
+	"log"
+	"os"
+)
 
 func main() {
-	fmt.Println("caca")
+	args := os.Args[1:]
+	log.Println(args[0])
 }
