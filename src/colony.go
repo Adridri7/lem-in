@@ -2,8 +2,6 @@ package src
 
 import "fmt"
 
-// var GColony Colony
-
 type Colony struct {
 	Rooms   []RoomInfos
 	Tunnels [][]string
@@ -41,15 +39,19 @@ func (c *Colony) MaxYRoomPos() (maxY int) {
 
 // Display 2d map of the colony.
 func (c *Colony) DisplayColony() {
-	for y := 0; y < c.MaxYRoomPos(); y++ {
-		for x := 0; x < c.MaxXRoomPos(); x++ {
+	for y := 0; y <= c.MaxYRoomPos(); y++ {
+		for x := 0; x <= c.MaxXRoomPos(); x++ {
+			found := false
 			for _, room := range c.Rooms {
 				if room.Y == y && room.X == x {
 					fmt.Print("[" + room.Index + "]")
+					found = true
 					break
 				}
 			}
-			fmt.Print(" ")
+			if !found {
+				fmt.Print(" ")
+			}
 		}
 		fmt.Print("\n")
 	}
