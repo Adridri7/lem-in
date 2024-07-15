@@ -10,3 +10,5 @@ type RoomInfos struct {
 	X, Y                   int
 	isStartRoom, isEndRoom bool
 }
+
+var Anthill Colony
