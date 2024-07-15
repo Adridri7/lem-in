@@ -1,4 +1,4 @@
-package pkg
+package src
 
 import (
 	"os"
@@ -7,6 +7,6 @@ import (
 
 // Convert .txt file into lines.
 func FileToTab(fileName string) []string {
-	data, _ := os.ReadFile("../examples/" + fileName)
+	data, _ := os.ReadFile("./examples/" + fileName)
 	return strings.Split(string(data), "\n")
 }
