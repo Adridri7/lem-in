@@ -40,7 +40,38 @@ Here's an example of a colony setup and the corresponding representation:
 ```
 
   
-## Choose Path function :
+## Project Structure :
+
+```
+.
+├── README.md
+├── examples
+│   ├── README.md
+│   ├── badtest00.txt
+│   ├── badtest01.txt
+│   ├── test00.txt
+│   ├── test01.txt
+│   ├── test02.txt
+│   ├── test03.txt
+│   ├── test04.txt
+│   ├── test05.txt
+│   ├── test06.txt
+│   └── test07.txt
+├── go.mod
+├── go.work
+├── main.go
+└── src
+    ├── colony.go
+    ├── go.mod
+    ├── initFarm.go
+    ├── input.go
+    └── population.go
+  
+  ```
+
+  - colony.go : zone, tunnels and rooms
+  - initFarm.go : read file.txt and extract data
+  - population.go : ants
 
 ### Exemple de Ants grid :
 
@@ -48,6 +79,7 @@ Knowing which paths to use :
 
 P = Path
 A = Ant
+
 ```  
           A3
         +---+
