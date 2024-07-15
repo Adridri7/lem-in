@@ -19,7 +19,7 @@ func Init(args []string) {
 			y, _ := strconv.Atoi(val[2])
 			roomInfos := RoomInfos{Index: index, X: x, Y: y, isStartRoom: true, isEndRoom: false}
 			i++
-			GColony.Rooms = append(GColony.Rooms, roomInfos)
+			Anthill.Rooms = append(Anthill.Rooms, roomInfos)
 			fmt.Println(roomInfos)
 
 		} else if args[i] == "##end" {
@@ -28,20 +28,20 @@ func Init(args []string) {
 			x, _ := strconv.Atoi(val[1])
 			y, _ := strconv.Atoi(val[2])
 			roomInfos := RoomInfos{Index: index, X: x, Y: y, isStartRoom: false, isEndRoom: true}
-			GColony.Rooms = append(GColony.Rooms, roomInfos)
+			Anthill.Rooms = append(Anthill.Rooms, roomInfos)
 			i++
 			end = true
 			fmt.Println(roomInfos)
 		} else {
 			if end {
-				GColony.Tunnels = append(GColony.Tunnels, strings.Split(args[i], "-"))
+				Anthill.Tunnels = append(Anthill.Tunnels, strings.Split(args[i], "-"))
 			} else {
 				val := strings.Split(args[i], " ")
 				index := val[0]
 				x, _ := strconv.Atoi(val[1])
 				y, _ := strconv.Atoi(val[2])
 				roomInfos := RoomInfos{Index: index, X: x, Y: y, isStartRoom: false, isEndRoom: false}
-				GColony.Rooms = append(GColony.Rooms, roomInfos)
+				Anthill.Rooms = append(Anthill.Rooms, roomInfos)
 				fmt.Println(roomInfos)
 			}
 		}

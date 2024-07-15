@@ -2,7 +2,7 @@ package src
 
 import "fmt"
 
-var GColony Colony
+// var GColony Colony
 
 type Colony struct {
 	Rooms   []RoomInfos
