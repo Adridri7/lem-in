@@ -17,7 +17,7 @@ func (p *Population) RoomIsFull(RoomIndex string) bool {
 	for _, room := range Anthill.Rooms {
 		if room.Index == RoomIndex {
 			for _, antPos := range p.AntsCoordinates {
-				if antpos.X == room.X && antpos.Y == room.Y {
+				if antPos.X == room.X && antPos.Y == room.Y {
 					return true
 				}
 			}

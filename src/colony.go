@@ -1,5 +1,7 @@
 package src
 
+import "fmt"
+
 var GColony Colony
 
 type Colony struct {
@@ -16,8 +18,8 @@ type RoomInfos struct {
 var Anthill Colony
 
 // Find max x pos for rooms.
-func (c *Colony) MaxXRoomPos() maxX int {
-	maxX := 0
+func (c *Colony) MaxXRoomPos() (maxX int) {
+	maxX = 0
 	for _, room := range c.Rooms {
 		if room.X > maxX {
 			maxX = room.X
@@ -27,8 +29,8 @@ func (c *Colony) MaxXRoomPos() maxX int {
 }
 
 // Find max y pos for rooms.
-func (c *Colony) MaxYRoomPos() maxY int {
-	maxY := 0
+func (c *Colony) MaxYRoomPos() (maxY int) {
+	maxY = 0
 	for _, room := range c.Rooms {
 		if room.Y > maxY {
 			maxY = room.Y
@@ -39,7 +41,7 @@ func (c *Colony) MaxYRoomPos() maxY int {
 
 // Display 2d map of the colony.
 func (c *Colony) DisplayColony() {
-	for y := 0, y < c.MaxYRoomPos(); y++ {
+	for y := 0; y < c.MaxYRoomPos(); y++ {
 		for x := 0; x < c.MaxXRoomPos(); x++ {
 			for _, room := range c.Rooms {
 				if room.Y == y && room.X == x {
