@@ -2,60 +2,75 @@ package src
 
 import (
 	"fmt"
-	"strings"
+	"os"
+	"sort"
 )
 
-var Paths [][]string
+var LegitPaths [][]string
 
-func GetAllValidPaths() [][]string {
-	var newPath [][]string
-	// Store the end room
+func GetAllValidPaths() {
+	var Paths [][]string
+	startRoom := ""
 	endRoom := ""
+	// Store start and end rooms.
 	for _, room := range Anthill.Rooms {
+		if room.isStartRoom {
+			startRoom = room.Index
+		}
 		if room.isEndRoom {
 			endRoom = room.Index
 		}
 	}
-	fmt.Println(endRoom)
-	// Copying and inverting the tunnels
-	var tunnels [][]string
+	// Copy + reverse tunnels to have bidirectionnal tunnels.
+	tunnels := make(map[string][]string)
 	for _, tunnel := range Anthill.Tunnels {
-		tunnels = append(tunnels, []string{tunnel[0], tunnel[1]})
-		tunnels = append(tunnels, []string{tunnel[1], tunnel[0]})
-	}
-	// How many from start (where can you go).
-	for _, tunnel := range Anthill.Tunnels {
-		if tunnel[0] == Anthill.Rooms[0].Index {
-			Paths = append(Paths, tunnel)
+		if _, ok := tunnels[tunnel[0]]; !ok {
+			tunnels[tunnel[0]] = []string{}
 		}
+		if _, ok := tunnels[tunnel[1]]; !ok {
+			tunnels[tunnel[1]] = []string{}
+		}
+		tunnels[tunnel[0]] = append(tunnels[tunnel[0]], tunnel[1])
+		tunnels[tunnel[1]] = append(tunnels[tunnel[1]], tunnel[0])
 	}
-	test := 0
-	for test < 10 {
-		for i, path := range Paths {
-			count := 0
-			// Init routes.
-			for _, tunnel := range tunnels {
-				if (path[len(path)-1] == tunnel[0] && count < 1) && (path[len(path)-1] != endRoom) && !strings.Contains(strings.Join(path, " "), tunnel[1]) {
-					count++
-					Paths[i] = append(Paths[i], tunnel...)
-				} else if (path[len(path)-1] == tunnel[0]) && (path[len(path)-1] != endRoom) && !strings.Contains(strings.Join(path, " "), tunnel[1]) {
-					// Create a copy of the current path
-					tempPath := make([]string, len(Paths[i])-2)
-					copy(tempPath, Paths[i][:len(Paths[i])-2])
-					// Append the tunnel to the copied path
-					tempPath = append(tempPath, tunnel...)
-					// Add the new path to Paths
-					Paths = append(Paths, tempPath)
+	// Recursive function to find all possible paths.
+	var findPaths func(currentRoom string, currentPath []string)
+	findPaths = func(currentRoom string, currentPath []string) {
+		currentPath = append(currentPath, currentRoom)
+		if currentRoom == endRoom {
+			temp := make([]string, len(currentPath))
+			copy(temp, currentPath)
+			Paths = append(Paths, temp)
+		} else {
+			for _, nextRoom := range tunnels[currentRoom] {
+				if !contains(currentPath, nextRoom) { // Éviter les cycles
+					findPaths(nextRoom, currentPath)
 				}
 			}
 		}
-		test++
 	}
-	for _, path := range Paths {
-		if path[len(path)-1] == endRoom {
-			newPath = append(newPath, path)
+	// Start the research from startRoom
+	findPaths(startRoom, []string{})
+	// Handle error.
+	if len(Paths) == 0 {
+		fmt.Println("ERROR: No paths were found between start and end room")
+		os.Exit(0)
+	}
+	// Sort paths by length.
+	LegitPaths = append(LegitPaths, Paths...)
+	SortByLength()
+	fmt.Println(LegitPaths)
+}
+func SortByLength() {
+	sort.Slice(LegitPaths, func(i, j int) bool {
+		return len(LegitPaths[i]) < len(LegitPaths[j])
+	})
+}
+func contains(slice []string, item string) bool {
+	for _, s := range slice {
+		if s == item {
+			return true
 		}
 	}
-	fmt.Println(newPath)
-	return newPath
+	return false
 }

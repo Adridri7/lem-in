@@ -2,15 +2,17 @@ package src
 
 import (
 	"fmt"
+	"os"
 	"strconv"
 	"strings"
 )
 
 func Init(args []string) {
-	antsNum := args[0]
-	fmt.Println(args)
-	end := false
-
+	AntsPop.InitialPop, _ = strconv.Atoi(args[0])
+	if AntsPop.InitialPop < 1 {
+		fmt.Println("ERROR: invalid data format, invalid number of Ants")
+		os.Exit(0)
+	}
 	for i := 1; i <= len(args)-1; i++ {
 		if args[i] == "##start" {
 			val := strings.Split(args[i+1], " ")
@@ -20,8 +22,6 @@ func Init(args []string) {
 			roomInfos := RoomInfos{Index: index, X: x, Y: y, isStartRoom: true, isEndRoom: false}
 			i++
 			Anthill.Rooms = append(Anthill.Rooms, roomInfos)
-			fmt.Println(roomInfos)
-
 		} else if args[i] == "##end" {
 			val := strings.Split(args[i+1], " ")
 			index := val[0]
@@ -30,10 +30,10 @@ func Init(args []string) {
 			roomInfos := RoomInfos{Index: index, X: x, Y: y, isStartRoom: false, isEndRoom: true}
 			Anthill.Rooms = append(Anthill.Rooms, roomInfos)
 			i++
-			end = true
-			fmt.Println(roomInfos)
+		} else if strings.HasPrefix(args[i], "#") {
+			continue
 		} else {
-			if end {
+			if strings.Contains(args[i], "-") {
 				Anthill.Tunnels = append(Anthill.Tunnels, strings.Split(args[i], "-"))
 			} else {
 				val := strings.Split(args[i], " ")
@@ -42,9 +42,8 @@ func Init(args []string) {
 				y, _ := strconv.Atoi(val[2])
 				roomInfos := RoomInfos{Index: index, X: x, Y: y, isStartRoom: false, isEndRoom: false}
 				Anthill.Rooms = append(Anthill.Rooms, roomInfos)
-				fmt.Println(roomInfos)
 			}
 		}
 	}
-	fmt.Println(antsNum)
+	AntsPop.InitStartPop()
 }

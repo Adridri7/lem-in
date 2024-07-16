@@ -6,7 +6,6 @@ type Colony struct {
 	Rooms   []RoomInfos
 	Tunnels [][]string
 }
-
 type RoomInfos struct {
 	Index                  string
 	X, Y                   int
@@ -14,6 +13,26 @@ type RoomInfos struct {
 }
 
 var Anthill Colony
+
+// Find end room.
+func (c *Colony) EndRoom() RoomInfos {
+	for _, room := range c.Rooms {
+		if room.isEndRoom {
+			return room
+		}
+	}
+	return RoomInfos{}
+}
+
+// Find start room.
+func (c *Colony) StartRoom() RoomInfos {
+	for _, room := range c.Rooms {
+		if room.isStartRoom {
+			return room
+		}
+	}
+	return RoomInfos{}
+}
 
 // Find max x pos for rooms.
 func (c *Colony) MaxXRoomPos() (maxX int) {
