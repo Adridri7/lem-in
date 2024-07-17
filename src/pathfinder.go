@@ -62,7 +62,8 @@ func GetAllValidPaths() {
 	// Sort paths by length.
 	LegitPaths = append(LegitPaths, Paths...)
 	SortByLength()
-	fmt.Println(LegitPaths)
+	fmt.Println("Ants number:", AntsPop.InitialPop)
+	fmt.Println("Valid path:", LegitPaths)
 	PrintPaths()
 
 }
