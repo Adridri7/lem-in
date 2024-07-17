@@ -300,3 +300,17 @@ So if R1 + A1 > R2 + A2 :
  A2  A4       
  A1  A3       Finish !
 ``` 
+
+### Result Struct 
+
+```
+number_of_ants
+the_rooms
+the_links
+
+Lx-y
+Lx-y Lx-y
+Lx-y Lx-y Lx-y
+Lx-y Lx-y
+Lx-y
+```

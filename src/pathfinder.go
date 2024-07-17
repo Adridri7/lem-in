@@ -83,7 +83,7 @@ func contains(slice []string, item string) bool {
 func PrintPaths() {
 	fmt.Println()
 	for _, path := range LegitPaths {
-		fmt.Println("Path:")
+		fmt.Println("Links:")
 		for i := 0; i < len(path)-1; i++ {
 			fmt.Printf("%s -> ", path[i])
 		}
