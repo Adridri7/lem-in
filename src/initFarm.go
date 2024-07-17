@@ -46,4 +46,5 @@ func Init(args []string) {
 		}
 	}
 	AntsPop.InitStartPop()
+	fmt.Println(AntsPop.InitialPop)
 }
