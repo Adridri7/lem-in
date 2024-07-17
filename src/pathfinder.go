@@ -23,7 +23,9 @@ func GetAllValidPaths() {
 	}
 	// Copy + reverse tunnels to have bidirectionnal tunnels.
 	tunnels := make(map[string][]string)
+
 	for _, tunnel := range Anthill.Tunnels {
+
 		if _, ok := tunnels[tunnel[0]]; !ok {
 			tunnels[tunnel[0]] = []string{}
 		}
@@ -33,6 +35,7 @@ func GetAllValidPaths() {
 		tunnels[tunnel[0]] = append(tunnels[tunnel[0]], tunnel[1])
 		tunnels[tunnel[1]] = append(tunnels[tunnel[1]], tunnel[0])
 	}
+
 	// Recursive function to find all possible paths.
 	var findPaths func(currentRoom string, currentPath []string)
 	findPaths = func(currentRoom string, currentPath []string) {
@@ -60,6 +63,8 @@ func GetAllValidPaths() {
 	LegitPaths = append(LegitPaths, Paths...)
 	SortByLength()
 	fmt.Println(LegitPaths)
+	PrintPaths()
+
 }
 func SortByLength() {
 	sort.Slice(LegitPaths, func(i, j int) bool {
@@ -73,4 +78,16 @@ func contains(slice []string, item string) bool {
 		}
 	}
 	return false
+}
+
+func PrintPaths() {
+	fmt.Println()
+	for _, path := range LegitPaths {
+		fmt.Println("Path:")
+		for i := 0; i < len(path)-1; i++ {
+			fmt.Printf("%s -> ", path[i])
+		}
+		fmt.Println(path[len(path)-1]) // Dernière salle sans flèche
+	}
+	fmt.Println()
 }
